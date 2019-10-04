@@ -13,10 +13,19 @@ def unique_houses(filename):
     ["Dumbledore's Army", 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
 
     """
-
+    roster = open(filename)
     houses = set()
+    for line in roster:
+        line = line.rstrip()
+        line = line.split("|")
+        if line[-1] == "I" or line[-1] =="G":
+            continue
+        else:
+            houses.add(line[2])
 
-    # Code goes here
+  #  houses = set()
+
+    
 
     return houses
 
