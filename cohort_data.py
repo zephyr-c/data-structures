@@ -29,6 +29,15 @@ def unique_houses(filename):
 
     return houses
 
+def parse_list(filename):
+    roster = open(filename)
+
+    lines = [line for line in roster]
+    lines = [line.rstrip() for line in lines]
+    lines = [item.split("|") for item in lines]
+
+    return lines
+
 
 def sort_by_cohort(filename):
     """TODO: Return a list of all cohort lists, including ghosts but not instructors.
@@ -43,11 +52,14 @@ def sort_by_cohort(filename):
     >>> sort_by_cohort("cohort_data.txt")
     [['Harry Potter', 'Mandy Brocklehurst', 'Ron Weasley', 'Oliver Wood', 'Colin Creevey', 'Cho Chang', 'Michael Corner', 'Draco Malfoy', 'Seamus Finnigan', 'Eddie Carmichael', 'Theodore Nott', 'Terence Higgs', 'Hermione Granger', 'Penelope Clearwater', 'Angelina Johnson', 'Dennis Creevey'], ['Neville Longbottom', 'Cedric Diggory', 'Pansy Parkinson', 'Anthony Goldstein', 'Padma Patil', 'Luna Lovegood', 'Eleanor Branstone', 'Lee Jordan', 'Marietta Edgecombe', 'Andrew Kirke', 'Ginny Weasley', 'Mary Macdonald', 'Blaise Zabini', 'Natalie McDonald', 'Adrian Pucey', 'Hannah Abbott', 'Graham Pritchard', 'Susan Bones', 'Roger Davies', 'Owen Cauldwell'], ['Laura Madley', 'Orla Quirke', 'Parvati Patil', 'Eloise Midgeon', 'Zacharias Smith', 'Cormac McLaggen', 'Lisa Turpin', 'Demelza Robins', 'Ernie Macmillan', 'Millicent Bullstrode', 'Percy Weasley', 'Jimmy Peakes', 'Justin Finch-Fletchley', 'Miles Bletchley', 'Malcolm Baddock'], ['Marcus Belby', 'Euan Abercrombie', 'Vincent Crabbe', 'Ritchie Coote', 'Katie Bell', 'Terry Boot', 'Lavender Brown', 'Gregory Goyle', 'Marcus Flint', 'Dean Thomas', 'Jack Sloper', 'Rose Zeller', 'Stewart Ackerley', 'Fred Weasley', 'George Weasley', 'Romilda Vane', 'Alicia Spinnet', 'Kevin Whitby'], ['Friendly Friar', 'Grey Lady', 'Nearly Headless Nick', 'Bloody Baron']]
     """
-    roster = open(filename)
 
-    lines = [line for line in roster]
-    lines = [line.rstrip() for line in lines]
-    lines = [item.split("|") for item in lines]
+    
+
+    #roster = open(filename)
+    lines = parse_list("cohort_data.txt")
+    # lines = [line for line in roster]
+    # lines = [line.rstrip() for line in lines]
+    # lines = [item.split("|") for item in lines]
     
     winter_16 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Winter 2016"]
     spring_16 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Spring 2016"]
@@ -87,19 +99,23 @@ def hogwarts_by_house(filename):
     [['Abbott', 'Chang', 'Creevey', 'Creevey', 'Edgecombe', 'Nott', 'Spinnet'], ['Abercrombie', 'Bell', 'Brown', 'Coote', 'Finnigan', 'Granger', 'Johnson', 'Jordan', 'Kirke', 'Longbottom', 'Macdonald', 'McDonald', 'McLaggen', 'Patil', 'Peakes', 'Potter', 'Robins', 'Sloper', 'Thomas', 'Vane', 'Weasley', 'Weasley', 'Weasley', 'Weasley', 'Weasley', 'Wood'], ['Bones', 'Branstone', 'Cauldwell', 'Diggory', 'Finch-Fletchley', 'Macmillan', 'Madley', 'Midgeon', 'Smith', 'Whitby', 'Zeller'], ['Ackerley', 'Belby', 'Boot', 'Brocklehurst', 'Carmichael', 'Clearwater', 'Corner', 'Davies', 'Goldstein', 'Lovegood', 'Patil', 'Quirke', 'Turpin'], ['Baddock', 'Bletchley', 'Bullstrode', 'Crabbe', 'Flint', 'Goyle', 'Higgs', 'Malfoy', 'Parkinson', 'Pritchard', 'Pucey', 'Zabini'], ['Baron', 'Friar', 'Lady', 'Nick'], ['Flitwick', 'McGonagall', 'Snape', 'Sprout']]
 
     """
+    lines = parse_list("cohort_data.txt")
 
-    all_hogwarts = []
-    dumbledores_army = []
-    gryffindor = []
-    hufflepuff = []
-    ravenclaw = []
-    slytherin = []
-    ghosts = []
-    instructors = []
+    dumbledores_army = ([f"{item[1]}" for item in lines if item[2] == "Dumbledore's Army"])
+    gryffindor = [f"{item[1]}" for item in lines if item[2] == "Gryffindor"]
+    hufflepuff = [f"{item[1]}" for item in lines if item[2] == "Hufflepuff"]
+    ravenclaw = [f"{item[1]}" for item in lines if item[2] == "Ravenclaw"]
+    slytherin = [f"{item[1]}" for item in lines if item[2] == "Slytherin"]
+    ghosts = [f"{item[1]}" for item in lines if item[-1] == "G"]
+    instructors = [f"{item[1]}" for item in lines if item[-1] == "I"]
 
-    # Code goes here
+    hogwarts = [dumbledores_army, gryffindor, hufflepuff, ravenclaw, slytherin, ghosts, instructors]
 
-    return all_hogwarts
+    all_hogwarts = [item.sort() for item in hogwarts]
+
+   # print(all_hogwarts)
+
+    return hogwarts
 
 
 def all_students_tuple_list(filename):
