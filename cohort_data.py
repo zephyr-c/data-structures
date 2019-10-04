@@ -45,26 +45,29 @@ def sort_by_cohort(filename):
     """
     roster = open(filename)
 
-    all_students = []
-    winter_16 = []
-    spring_16 = []
-    summer_16 = []
-    fall_15 = []
-    ghosts = []
+    lines = [line for line in roster]
+    lines = [line.rstrip() for line in lines]
+    lines = [item.split("|") for item in lines]
+    
+    winter_16 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Winter 2016"]
+    spring_16 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Spring 2016"]
+    summer_16 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Summer 2016"]
+    fall_15 = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "Fall 2015"]
+    ghosts = [f"{item[0]} {item[1]}" for item in lines if item[-1] == "G"]
 
-    for line in roster:
-        line = line.rstrip()
-        line = line.split("|")
-        if line[-1] == "Winter 2016":
-            winter_16.append(f"{line[0]} {line[1]}")
-        if line[-1] == "Spring 2016":
-            spring_16.append(f"{line[0]} {line[1]}")
-        if line[-1] == "Summer 2016":
-            summer_16.append(f"{line[0]} {line[1]}")
-        if line[-1] == "Fall 2015":
-            fall_15.append(f"{line[0]} {line[1]}")
-        if line[-1] == "G":
-            ghosts.append(f"{line[0]} {line[1]}")
+    # for line in roster:
+    #     line = line.rstrip()
+    #     line = line.split("|")
+    #     if line[-1] == "Winter 2016":
+    #         winter_16.append(f"{line[0]} {line[1]}")
+    #     if line[-1] == "Spring 2016":
+    #         spring_16.append(f"{line[0]} {line[1]}")
+    #     if line[-1] == "Summer 2016":
+    #         summer_16.append(f"{line[0]} {line[1]}")
+    #     if line[-1] == "Fall 2015":
+    #         fall_15.append(f"{line[0]} {line[1]}")
+    #     if line[-1] == "G":
+    #         ghosts.append(f"{line[0]} {line[1]}")
 
     all_students = [fall_15, winter_16, spring_16, summer_16, ghosts]
 
